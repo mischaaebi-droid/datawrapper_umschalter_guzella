@@ -42,7 +42,7 @@ html,body{margin:0;padding:0;background:#fff;font-family:Arial,Helvetica,sans-se
 
   <div class="chart-frame active" id="chart-total">
     <iframe title="Gesamtausstoss pro Land"
-      src="https://datawrapper.dwcdn.net/9oFZq/2/"
+      src="https://datawrapper.dwcdn.net/9oFZq/4/"
       scrolling="no" frameborder="0"
       style="width:100%; border:none;" height="560"></iframe>
   </div>
@@ -55,12 +55,24 @@ html,body{margin:0;padding:0;background:#fff;font-family:Arial,Helvetica,sans-se
   </div>
 </div>
 
+<script data-goatcounter="https://mischaaebi.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 <script>
 const toggle=document.getElementById('chart-toggle');
 const totalChart=document.getElementById('chart-total');
 const capitaChart=document.getElementById('chart-capita');
 const totalLabel=document.getElementById('label-total');
 const capitaLabel=document.getElementById('label-capita');
+
+function trackSwitch(view){
+  if(window.goatcounter && typeof window.goatcounter.count === 'function'){
+    window.goatcounter.count({
+      path: '/switch/' + view,
+      title: 'Grafik umgeschaltet: ' + view,
+      event: true
+    });
+  }
+}
 
 function updateChart(){
   const showCapita=toggle.checked;
@@ -69,9 +81,24 @@ function updateChart(){
   totalLabel.classList.toggle('active',!showCapita);
   capitaLabel.classList.toggle('active',showCapita);
 }
-toggle.addEventListener('change',updateChart);
-totalLabel.addEventListener('click',()=>{toggle.checked=false;updateChart();});
-capitaLabel.addEventListener('click',()=>{toggle.checked=true;updateChart();});
+toggle.addEventListener('change',()=>{
+  updateChart();
+  trackSwitch(toggle.checked ? 'gesamtausstoss' : 'pro-kopf');
+});
+totalLabel.addEventListener('click',()=>{
+  if(toggle.checked){
+    toggle.checked=false;
+    updateChart();
+    trackSwitch('pro-kopf');
+  }
+});
+capitaLabel.addEventListener('click',()=>{
+  if(!toggle.checked){
+    toggle.checked=true;
+    updateChart();
+    trackSwitch('gesamtausstoss');
+  }
+});
 updateChart();
 </script>
 </body>
