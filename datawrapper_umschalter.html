@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Treibhausgasemissionen</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff;font-family:Arial,Helvetica,sans-serif}
+.dw-switcher{width:100%}
+.toggle-control{display:flex;align-items:center;gap:10px;margin:0 0 14px 0}
+.toggle-label{font-size:14px;font-weight:700;color:#777;cursor:pointer;user-select:none}
+.toggle-label.active{color:#111}
+.toggle{position:relative;width:54px;height:30px;flex:0 0 auto;cursor:pointer}
+.toggle input{position:absolute;opacity:0;width:0;height:0}
+.toggle-track{position:absolute;inset:0;background:#5f6f7a;border-radius:999px}
+.toggle-knob{position:absolute;top:4px;left:4px;width:22px;height:22px;background:#fff;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.25);transition:transform .18s ease}
+.toggle input:checked + .toggle-track + .toggle-knob{transform:translateX(24px)}
+.chart-frame{display:none;width:100%}
+.chart-frame.active{display:block}
+.chart-frame iframe{display:block;width:100%;border:0}
+@media (max-width:600px){
+  .toggle-control{gap:8px;flex-wrap:wrap}
+  .toggle-label{font-size:12px}
+  .toggle{width:50px;height:28px}
+  .toggle-knob{width:20px;height:20px}
+  .toggle input:checked + .toggle-track + .toggle-knob{transform:translateX(22px)}
+}
+</style>
+</head>
+<body>
+<div class="dw-switcher">
+  <div class="toggle-control">
+    <span id="label-total" class="toggle-label active">GESAMTAUSSTOSS PRO LAND</span>
+    <label class="toggle" aria-label="Zwischen Gesamtausstoss und Pro-Kopf-Darstellung wechseln">
+      <input id="chart-toggle" type="checkbox">
+      <span class="toggle-track"></span>
+      <span class="toggle-knob"></span>
+    </label>
+    <span id="label-capita" class="toggle-label">PRO KOPF</span>
+  </div>
+
+  <div class="chart-frame active" id="chart-total">
+    <iframe title="Gesamtausstoss pro Land"
+      src="https://datawrapper.dwcdn.net/9oFZq/2/"
+      scrolling="no" frameborder="0"
+      style="width:100%; border:none;" height="560"></iframe>
+  </div>
+
+  <div class="chart-frame" id="chart-capita">
+    <iframe title="Treibhausgasemissionen pro Kopf"
+      src="https://datawrapper.dwcdn.net/Wil7q/1/"
+      scrolling="no" frameborder="0"
+      style="width:100%; border:none;" height="560"></iframe>
+  </div>
+</div>
+
+<script>
+const toggle=document.getElementById('chart-toggle');
+const totalChart=document.getElementById('chart-total');
+const capitaChart=document.getElementById('chart-capita');
+const totalLabel=document.getElementById('label-total');
+const capitaLabel=document.getElementById('label-capita');
+
+function updateChart(){
+  const showCapita=toggle.checked;
+  totalChart.classList.toggle('active',!showCapita);
+  capitaChart.classList.toggle('active',showCapita);
+  totalLabel.classList.toggle('active',!showCapita);
+  capitaLabel.classList.toggle('active',showCapita);
+}
+toggle.addEventListener('change',updateChart);
+totalLabel.addEventListener('click',()=>{toggle.checked=false;updateChart();});
+capitaLabel.addEventListener('click',()=>{toggle.checked=true;updateChart();});
+updateChart();
+</script>
+</body>
+</html>
