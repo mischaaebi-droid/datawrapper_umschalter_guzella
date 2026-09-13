@@ -6,8 +6,8 @@
 <title>Treibhausgasemissionen</title>
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;width:100%;max-width:100%;overflow-x:hidden;background:#fff;font-family:Arial,Helvetica,sans-serif}
-.dw-switcher{width:100%;max-width:100%;overflow-x:hidden}
+html,body{margin:0;padding:0;background:#fff;font-family:Arial,Helvetica,sans-serif}
+.dw-switcher{width:100%}
 .toggle-control{display:flex;align-items:center;gap:10px;margin:0 0 14px 0}
 .toggle-label{font-size:14px;font-weight:700;color:#777;cursor:pointer;user-select:none}
 .toggle-label.active{color:#111}
@@ -16,9 +16,9 @@ html,body{margin:0;padding:0;width:100%;max-width:100%;overflow-x:hidden;backgro
 .toggle-track{position:absolute;inset:0;background:#5f6f7a;border-radius:999px}
 .toggle-knob{position:absolute;top:4px;left:4px;width:22px;height:22px;background:#fff;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.25);transition:transform .18s ease}
 .toggle input:checked + .toggle-track + .toggle-knob{transform:translateX(24px)}
-.chart-frame{display:none;width:100%;max-width:100%;overflow:hidden}
+.chart-frame{display:none;width:100%}
 .chart-frame.active{display:block}
-.chart-frame iframe{display:block;width:100%;max-width:100%;border:0;overflow:hidden}
+.chart-frame iframe{display:block;width:100%;border:0}
 @media (max-width:600px){
   .chart-frame iframe{height:720px}
   .toggle-control{gap:8px;flex-wrap:wrap}
@@ -50,7 +50,7 @@ html,body{margin:0;padding:0;width:100%;max-width:100%;overflow-x:hidden;backgro
 
   <div class="chart-frame" id="chart-capita">
     <iframe title="Treibhausgasemissionen pro Kopf"
-      src="https://datawrapper.dwcdn.net/Wil7q/7/"
+      src="https://datawrapper.dwcdn.net/Wil7q/1/"
       scrolling="no" frameborder="0"
       style="width:100%; border:none;" height="560"></iframe>
   </div>
